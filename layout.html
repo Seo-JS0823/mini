@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/font.css">
+	<link rel="stylesheet" href="css/layout.css">
+	<link rel="stylesheet" href="css/color.css">
+	<link rel="stylesheet" href="css/display.css">
+	<title>가계부 레이아웃 초안</title>
+</head>
+<body>
+<nav class="main-navbar -bg-main -row -g2 -space-b ft-20">
+	<div class="main-navbar-link -row -g2 -center">
+		<div class="btn-e" id="home-href">Life Runer</div>
+		<div class="btn-e" id="acot-href">가계부</div>
+		<div class="btn-e" id="life-href">자기관리</div>
+	</div>
+	<div class="main-navbar-search -row -center">
+		<div class="-row -center">
+			<img src="img/search.png">
+			<input class="search-bar ft-30" id="search" type="text" placeholder="search">
+		</div>
+	</div>
+	<div class="main-navbar-user -row -g2 -space-b ft-20">
+		<div class="btn-e" id="user-message-btn">알림</div>
+		<div class="btn-e" id="user-profile-btn">사용자 정보</div>
+	</div>
+</nav>
+
+<script src="js/life-runer-util.js"></script>
+<script>
+	// Life Runer 버튼
+	const homeHref = gettersId('home-href'); Urls.listener(homeHref);
+	// 가계부 버튼
+	const acotHref = gettersId('acot-href'); Urls.listener(acotHref);
+	// 자기관리 버튼
+	const lifeHref = gettersId('life-href'); Urls.listener(lifeHref);
+	// 검색 버튼
+	const searchRequest = gettersId('search'); Urls.search(searchRequest);
+	// 사용자 정보 버튼
+	const userHref = gettersId('user-profile-btn'); Urls.listener(userHref);
+</script>
+<script>
+	console.log(homeHref);
+</script>
+</body>
+</html>

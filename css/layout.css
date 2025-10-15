@@ -1,0 +1,78 @@
+body {
+  width: 100vw;
+  min-width: 800px;
+  height: auto;
+  min-height: 100vh;
+  background-color: var(--current-mode);
+  user-select: none;
+}
+.btn-e:hover {
+  background-color: var(--btn-w-hover);
+  transform: scale(1.1);
+  text-shadow: var(--btn-wt-event);
+  box-shadow: var(--btn-wt-event);
+}
+.btn-e:active {
+  background-color: var(--btn-w-active);
+  transform: scale(1);
+  text-shadow: var(--btn-wt-event);
+  box-shadow: var(--btn-wt-event);
+}
+.search-bar {
+  padding-left: 0.5rem;
+  font-size: var(--size15);
+  outline: none;
+  border: none;
+}
+/* 공통 상단 바 */
+.main-navbar {
+  width: 100%;
+  height: 7rem;
+  font-family: var(--m-font-link);
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: white;
+}
+.main-navbar > div {
+  height: 5rem;
+  width: auto;
+  padding: 0.5rem 2rem;
+}
+.main-navbar-link > div,
+.main-navbar-user > div {
+  height: 4rem;
+  line-height: 4rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+}
+.main-navbar-search > div {
+  height: 5rem;
+  background-color: var(--main-white);
+  border-radius: 3rem;
+  overflow: hidden;
+}
+.main-navbar-search > div > img {
+  width: 3rem;
+  padding: 0 1rem;
+}
+.main-navbar-search > div > input[type=text] {
+  width: 40rem;
+  line-height: 5rem;
+  font-size: var(--size20);
+}
+
+/*  */
+@media (width < 1600px) {
+  html { font-size: 9px; }
+}
+@media (width < 1200px) {
+  html { font-size: 8px; }
+}
+@media (width < 1000px) {
+  html { font-size: 7px; }
+}
+@media (width < 900px) {
+  html { font-size: 6px; }
+}

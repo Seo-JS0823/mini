@@ -1,0 +1,22 @@
+:root {
+  --m-font-main:sans-serif;
+  --m-font-link:Paperozi;
+  --size12: 1.2rem;
+  --size15: 1.5rem;
+  --size20: 2rem;
+  --size30: 3rem;
+  --size40: 4rem;
+}
+
+.ft-12 { font-size: var(--size12); }
+.ft-15 { font-size: var(--size15); }
+.ft-20 { font-size: var(--size20); }
+.ft-30 { font-size: var(--size30); }
+.ft-40 { font-size: var(--size40); }
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+}
