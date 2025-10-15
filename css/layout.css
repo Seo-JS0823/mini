@@ -62,7 +62,14 @@ body {
   line-height: 5rem;
   font-size: var(--size20);
 }
-
+.main-navbar-user > div:nth-of-type(2) {
+  display: flex;
+  align-items: center;
+}
+.main-navbar-user > div > img {
+  width: 3rem;
+  position: relative;
+}
 /*  */
 @media (width < 1600px) {
   html { font-size: 9px; }
