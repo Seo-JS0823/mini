@@ -8,9 +8,11 @@
 	<link rel="stylesheet" href="css/layout.css">
 	<link rel="stylesheet" href="css/color.css">
 	<link rel="stylesheet" href="css/display.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
 	<title>가계부 레이아웃 초안</title>
 </head>
 <body>
+<!-- 상단바 -->
 <nav class="main-navbar -bg-main -row -g2 -space-b ft-20">
 	<div class="main-navbar-link -row -g2 -center">
 		<div class="btn-e" id="home-href">Life Runer</div>
@@ -25,11 +27,56 @@
 	</div>
 	<div class="main-navbar-user -row -g2 -space-b ft-20">
 		<div class="btn-e" id="user-profile-btn">내 정보관리</div>
-		<div class="btn-e" id="user-message-btn"><img src="img/bell.png"></div>
+		<div class="main-navbar-user-smsbox -col" id="user-message-btn">
+			<img src="img/bell.png">
+			<!-- userSMS Component 'user-smsbox-headers' -->
+		</div>
 	</div>
 </nav>
 
+<!-- 메인 레이아웃 가계부 -->
+<div class="main-content -col -g1">
+	<div class="main-lay-parent -row -g1 -space-b">
+		<div class="main-menu-cpnt -col">
+			<div class="-col">
+				<span class="material-symbols-outlined">add_box</span>
+				<div>수입 등록</div>
+			</div>
+		</div>
+		<div class="main-menu-cpnt -col">
+			<div class="-col">
+				<span class="material-symbols-outlined">attach_money</span>
+				<div>수출 등록</div>
+			</div>
+		</div>
+		<div class="main-menu-cpnt -col">
+			<div class="-col">
+				<span class="material-symbols-outlined">chart_data</span>
+				<div>통계 내기</div>
+			</div>
+		</div>
+		<div class="main-menu-cpnt -col">
+			<div class="-col">
+				<span class="material-symbols-outlined">modeling</span>
+				<div>시뮬레이션</div>
+			</div>
+		</div>
+		<div class="main-menu-cpnt -col">
+			<div class="-col">
+				<span class="material-symbols-outlined">settings</span>
+				<div>설정</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="main-lay-parent">
+
+	</div>
+	<div class="main-lay-parent"></div>
+</div>
+
 <script src="js/life-runer-util.js"></script>
+<script src="js/life-runer-component.js"></script>
 <script>
 	// Life Runer 버튼
 	const homeHref = gettersId('home-href'); Urls.listener(homeHref);
@@ -41,9 +88,31 @@
 	const searchRequest = gettersId('search'); Urls.search(searchRequest);
 	// 사용자 정보 버튼
 	const userHref = gettersId('user-profile-btn'); Urls.listener(userHref);
+	// 사용자 메시지 버튼
+	const userSms = gettersClass('main-navbar-user-smsbox');
+
+	let smsboxSelector = false;
+	userSms.addEventListener('click', () => {
+		// TODO : 나중에 fetch then 안으로 옮기기
+		let smsbox = render.getComponent('user-smsbox-headers', {
+			user : {
+				messageCount : 15,
+				href: '/call',
+				lastTakeTime: 3
+			}
+		})
+		if(smsboxSelector) {
+			let smsbox = gettersId('user-smsbox');
+			smsboxSelector = false;
+			userSms.removeChild(smsbox);
+		} else {
+			smsboxSelector = true;
+			userSms.appendChild(smsbox);
+		}
+	});
 </script>
 <script>
-	
+
 </script>
 </body>
 </html>

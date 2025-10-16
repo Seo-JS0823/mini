@@ -22,11 +22,26 @@ function gettersClassChoice(name, number) {
   tagValid(tag);
   return tag;
 }
+function displayOpen(tag) {
+  tagValid(tag);
+  tag.style.display = 'block';
+}
+function displayClose(tag) {
+  tagValid(tag);
+  tag.style.display = 'none';
+}
 
 // 유효성 검사 함수들
 function nameValid(name) {
   if(!name) {
     throw new Error('가져올 태그의 키값을 지정하세요.');
+  }
+}
+
+function jsonValid(json) {
+  if(!json) {
+    console.log(json);
+    console.log('가져온 JSON 데이터가 없습니다.');
   }
 }
 
@@ -71,7 +86,7 @@ const Urls = {
       
       if(e.key === 'Enter') {
         console.log(url);
-        /*
+        /* JSON 데이터 받아서 컴포넌트 조각 렌더링 또는 로케이션
         fetch(url)
         .catch(error => console.log(error))
         .then(response => response.json())

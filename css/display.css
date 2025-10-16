@@ -3,6 +3,10 @@
   flex-direction: row;
   align-items: center;
 }
+.-col {
+  display: flex;
+  flex-direction: column;
+}
 .-g1 { gap: 1rem; }
 .-g2 { gap: 2rem; }
 .-g3 { gap: 3rem; }
