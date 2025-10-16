@@ -113,23 +113,27 @@ body {
   padding: 1rem 0;
   overflow-y: auto;
   margin-top: 5rem;
-}
-.main-lay-parent {
-  width: 70%;
-  padding: 0 8rem;
+  gap:1rem;
 }
 .main-content > .main-lay-parent:nth-of-type(1) {
+  width: 70%;
   height: 15rem;
+  padding: 0 8rem;
   border-radius: 10rem;
   background-color: #1E90FF66;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .main-content > .main-lay-parent:nth-of-type(2) {
+  width: calc(70% + 16rem);
   height: auto;
   min-height: 100rem;
+  align-items: flex-start;
+  margin-top: 7rem;
 }
 .main-content > .main-lay-parent:nth-of-type(3) {
-  height: 20rem;
+  width: calc(70% + 16rem);
+  height: auto;
+  min-height: 60rem;
 }
 .main-menu-cpnt {
   width: 20%;
@@ -155,8 +159,39 @@ body {
 .main-menu-cpnt > div:nth-of-type(1) > span { font-size: 5rem; }
 
 /* 메인 컨텐츠 : 가계부 내용 부분 */
+.main-content > .main-lay-parent:nth-of-type(2) > div:nth-of-type(1) {
+  width: 40%;
+  height: auto;
+  min-height: 100rem;
+}
+.main-content > .main-lay-parent:nth-of-type(2) > div:nth-of-type(2) {
+  width: 60%;
+  height: auto;
+  min-height: 100rem;
+}
+.-h10 { height: 10rem; }
+.-h10 { height: 20rem; }
+.-h20 { height: 20rem; }
+.-h30 { height: 30rem; }
+.-h40 { height: 40rem; }
+.-h50 { height: 50rem; }
+.-h60 { height: 60rem; }
+.-h70 { height: 70rem; }
+.-h80 { height: 80rem; }
 
+.main-lay-cpnt {
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.1);
+}
 
+.main-footer {
+  width: 100%;
+  height: 30rem;
+  margin-top:10rem;
+  background-color: var(--main-color);
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.4);
+}
 /*  */
 @media (width < 1600px) {
   html { font-size: 10px; }
