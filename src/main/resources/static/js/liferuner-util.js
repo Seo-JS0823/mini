@@ -91,13 +91,32 @@ const LifeAPI = {
   }
 }
 
+function tokenTimeValid(token) {
+  if(!token) return true;
+  
+  try {
+	const payloadBase64 = token.split('.')[1];
+	const decodedPayload = JSON.parse(atob(payloadBase64));
+	const expTime = decodedPayload.exp;
+	const curTime = Math.floor(Date.now() / 1000);
+	return expTime < curTime;
+  } catch(e) {
+	console.error('토큰 디코딩 실패');
+	return true;
+  }
+}
+
 function headerComponentChange() {
+  const token = localStorage.getItem('liferuner_jwt_token');
   const header = gettersClass('main-header');
   header.innerHTML = '';
-  const token = localStorage.getItem('liferuner_jwt_token');
-  if(token) {
-	header.appendChild(componentFactory.getComponent('로그인-이후-헤더', {}));
+  
+  let tokenValid = tokenTimeValid(token);
+  
+  if(tokenValid) {
+	localStorage.removeItem('liferuner_jwt_token');	
+	header.appendChild(componentFactory.getComponent('로그인-이전-헤더', {}));
   } else {
-	header.appendChild(componentFactory.getComponent('로그인-이전-헤더', {}));	
+	header.appendChild(componentFactory.getComponent('로그인-이후-헤더', {}));
   }
 }

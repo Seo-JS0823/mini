@@ -23,10 +23,13 @@
 
 <div th:replace="~{dialog/login :: login-modal}"></div>
 <div th:replace="~{dialog/join :: join-modal}"></div>
+<script src="/js/life-compo.js"></script>
 <script src="/js/liferuner-util.js"></script>
 <script src="/js/liferuner-component.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', headerComponentChange);
+  document.addEventListener('DOMContentLoaded', () => {
+	headerComponentChange();
+  });
 
   // 사이드바 Width 이벤트
   const sideBtn = gettersId('sideBtn');
