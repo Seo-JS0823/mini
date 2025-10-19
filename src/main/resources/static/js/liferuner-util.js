@@ -44,6 +44,16 @@ function valueReset(name) {
   }
 }
 
+function userLogout() {
+  if(confirm('정말 로그아웃 하시겠습니까?')) {
+    localStorage.removeItem('liferuner_jwt_token');
+    alert('로그아웃 되었습니다.');
+    window.location.href = '/';
+  } else {
+	return;
+  }
+}
+
 class ComponentManager {
   constructor() {
 	this.components = {};
@@ -59,5 +69,35 @@ class ComponentManager {
 	const component = this.components[name];
 	Validate.HTMLValidate(component);
 	return component(data);
+  }
+}
+
+const LifeAPI = {
+  postApiRequest(url, body, callback) {
+	const token = localStorage.getItem('liferuner_jwt_token');
+	
+	fetch(url, {
+	  method: 'post',
+	  headers: {
+	    'Content-Type':'application/json',
+	    'Authorization':`Bearer ${token}`
+	  },
+	  body: JSON.stringify(body)
+	})
+	.then(response => response.json())
+	.then(data => {
+	  callback(data);
+	})
+  }
+}
+
+function headerComponentChange() {
+  const header = gettersClass('main-header');
+  header.innerHTML = '';
+  const token = localStorage.getItem('liferuner_jwt_token');
+  if(token) {
+	header.appendChild(componentFactory.getComponent('로그인-이후-헤더', {}));
+  } else {
+	header.appendChild(componentFactory.getComponent('로그인-이전-헤더', {}));	
   }
 }

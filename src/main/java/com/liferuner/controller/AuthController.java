@@ -28,6 +28,7 @@ public class AuthController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<TokenResponseDTO> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
+		System.out.println("username : " + loginRequest.getUsername());
 		Authentication authentication = authenticationManager.authenticate(
 			new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
 				                                    loginRequest.getPassword()
@@ -35,7 +36,7 @@ public class AuthController {
 		);
 		
 		String jwt = jwtTokenProvider.createToken(authentication);
-		
+		System.out.println("Token : " + jwt);
 		return ResponseEntity.ok(new TokenResponseDTO(jwt));
 	}
 }

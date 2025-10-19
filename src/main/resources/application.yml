@@ -32,3 +32,9 @@ server:
   servlet:
     encoding:
       force: true
+      
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

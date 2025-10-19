@@ -1,4 +1,6 @@
-package com.liferuner.entity;
+package com.liferuner.transfer;
+
+import com.liferuner.entity.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

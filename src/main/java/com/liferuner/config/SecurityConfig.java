@@ -40,7 +40,7 @@ public class SecurityConfig {
 		// 권한 설정
 		.authorizeHttpRequests(auth -> auth
 			// 권한 인증, 회원가입, 로그인 등 경로 허용
-			.requestMatchers("/api/auth/**", "/join", "/login", "/", "/css/**", "/img/**", "/js/**").permitAll()
+			.requestMatchers("/api/auth/**", "/join", "/", "/css/**", "/img/**", "/js/**", "/favicon.ico").permitAll()
 			// USER 권한 필요한 경로
 			.requestMatchers("/api/user/**").hasRole("USER")
 			// 나머지 모든 요청은 인증 필요(토큰)
