@@ -1,0 +1,166 @@
+@charset "UTF-8";
+
+.join-dialog {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(33, 33, 33, 0.1);
+}
+.join-dialog > div:nth-of-type(1) {
+  width: 50rem;
+  height: 70rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #AAA;
+  border-radius: 1rem;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 0 0 5px rgba(33, 33, 33, 0.2);
+  background-color: white;
+  
+  & > div:nth-of-type(1) {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Cafe24Decobox';
+    padding: 1rem 0;
+  }
+  
+  & > div:nth-of-type(2) {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  & > div:nth-of-type(3) {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    & a {
+      color: #1E90FF;
+      text-decoration: underline;
+    }
+  }
+  
+  & hr {
+    width: 100%;
+    height: 1px;
+    border: none;
+    background-color: #AAA;
+  }
+  
+  & > div:last-child {
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    & > button {
+      width: 100%;
+      height: 3rem;
+    }
+  }
+}
+.join-modal-input {
+  width: 90%;
+  height: auto;
+  padding: 1rem;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  overflow-y: auto;
+  
+  & > div:not(.join-modal-row, .join-modal-date) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    & input[type=text], input[type=password] {
+      height: 3rem;
+      border: 1px solid #AAA;
+      border-radius: 1rem;
+      outline: none;
+      padding-left: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    & div:last-child {
+      height: 1rem;
+      font-size: 1rem;
+      padding-left: 1rem;
+    }
+  }
+  
+  & .join-modal-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
+    & > div {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    & > div > div { width: 8rem; }
+    & input[type=password] {
+      width: calc(100% - 8rem);
+      height: 2.5rem;
+      outline: none;
+      border: 1px solid #AAA;
+      border-radius: 1rem;
+      padding-left: 1rem;
+      font-size: 1.2rem;
+    }
+    & > div:nth-of-type(2) {
+      width: auto;
+      height: 1rem;
+      font-size: 1rem;
+      padding-left: 9rem;
+    }
+  }
+}
+
+.join-modal-date {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  & > div:nth-of-type(2) {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    
+    & input[type=text], select {
+      width: 33%;
+      height: 100%;
+      outline: none;
+      border: 1px solid #AAA;
+      border-radius: 1rem;
+      padding: 0;
+      padding-left: 1rem;
+    }
+  }
+  
+  & > div:last-child {
+    width: auto;
+    height: 1rem;
+    font-size: 1rem;
+    padding-left: 1rem;
+  }
+}

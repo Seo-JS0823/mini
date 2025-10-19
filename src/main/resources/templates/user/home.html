@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0}"/>
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" th:href="@{/css/color.css}">
+  <link rel="stylesheet" th:href="@{/css/font.css}">
+  <link rel="stylesheet" th:href="@{/css/layout.css}">
+  <link rel="stylesheet" th:href="@{/css/login-modal.css}">
+  <link rel="stylesheet" th:href="@{/css/join-modal.css}">
+  <title>Life Runer</title>
+</head>
+<body>
+<nav th:replace="~{layout/sidebar :: sidebar}"></nav>
+
+<div class="main-container">
+<div th:replace="~{layout/header :: header}"></div>
+
+</div>
+
+<div th:replace="~{dialog/login :: login-modal}"></div>
+<div th:replace="~{dialog/join :: join-modal}"></div>
+<script src="/js/liferuner-util.js"></script>
+<script src="/js/liferuner-component.js"></script>
+<script>
+  // 사이드바 Width 이벤트
+  const sideBtn = gettersId('sideBtn');
+  let sideBtnControl = true;
+  sideBtn.addEventListener('click', () => {
+    let symbol = gettersId('sideBtn-symbol');
+    let sideBarEl = gettersClass('side-bar-el');
+    let root = document.documentElement.style;
+	if(sideBtnControl) {
+	  sideBtnControl = false;
+	  symbol.textContent = 'left_panel_open';
+	  root.setProperty('--side-bar-w', '4rem');
+	  sideBarEl.style.display = 'none';
+	} else {
+	  sideBtnControl = true;
+	  symbol.textContent = 'left_panel_close';
+	  root.setProperty('--side-bar-w', '20rem');
+	  sideBarEl.style.display = 'flex';
+	}
+  });
+  
+  // 사이드바 메뉴 Open Close 이벤트
+  const sideBarBoxs = gettersClassAll('side-bar-el-box');
+  sideBarBoxs.forEach((box, i) => {
+    box.addEventListener('click', () => {
+      let move = box.getAttribute('data-move');
+      let symbol = box.children[0];
+      let list = gettersClass('side-bar-el-list', i);
+      if(move === 'false') {
+        symbol.textContent = 'stat_minus_1';
+        list.style.display = 'none';
+        box.setAttribute('data-move', 'true');
+      } else if(move === 'true') {
+    	symbol.textContent = 'stat_1';
+    	list.style.display = 'block';
+        box.setAttribute('data-move', 'false');
+      }
+    });
+  });
+  
+  // 로그인 모달창 관련 이벤트
+  const loginBtn = gettersId('login');
+  loginBtn.addEventListener('click', (e) => {
+    let loginDialog = gettersClass('login-dialog');
+    loginDialog.style.display = 'flex';
+  });
+  
+  const loginModal = gettersId('login-modal');
+  loginModal.addEventListener('click', (e) => { e.stopPropagation(); });
+  
+  const loginDialog = gettersClass('login-dialog');
+  loginDialog.addEventListener('click', () => {
+	valueReset('UID');
+	valueReset('UPW');
+    loginDialog.style.display = 'none';
+  });
+  
+  // 회원가입 모달창 관련 이벤트
+  const joinDialog = gettersClass('join-dialog');
+  joinDialog.addEventListener('click', () => {
+    joinDialog.style.display = 'none';
+  });
+  
+  const joinModal = gettersId('join-modal');
+  joinModal.addEventListener('click', (e) => { e.stopPropagation(); });
+  
+  const joinHref = gettersId('join-href');
+  joinHref.addEventListener('click', (e) => {
+	valueReset([
+	  'join-name', 'join-year', 'join-month', 'join-day',
+	  'join-email', 'join-uid', 'join-upw', 'join-upw-valid',
+	  'join-address', 'UID', 'UPW'
+	]);
+    loginDialog.style.display = 'none';
+    joinDialog.style.display = 'flex';
+  });
+  
+  const joinBackRun = gettersId('back-run');
+  joinBackRun.addEventListener('click', () => {
+    joinDialog.style.display = 'none';
+    loginDialog.style.display = 'flex';
+  });
+  
+  const joinRun = gettersId('join-run');
+  joinRun.addEventListener('click', () => {
+    let name = gettersId('join-name').value;
+    let gender = gettersId('join-man').checked ? 'man' : 'woman';
+    let birthday = gettersId('join-year').value + '-' + gettersId('join-month').value + '-' + gettersId('join-day').value;
+    let email = gettersId('join-email').value;
+    let userid = gettersId('join-uid').value;
+    let password = gettersId('join-upw').value;
+    let address = gettersId('join-address').value;
+    
+    let user = {
+      'name':name,
+      'gender':gender,
+      'birthday':birthday,
+      'email':email,
+      'userid':userid,
+      'password':password,
+      'address':address
+    }
+    console.log(user);
+    postRequestToTEXT('/join', user);
+  });
+  
+  const loginRun = gettersId('login-run');
+  loginRun.addEventListener('click', () => {
+    let userid = gettersId('UID').value;
+	let password = gettersId('UPW').value;
+	 
+	let user = {
+	  'userid':userid,
+	  'password':password
+	}
+	console.log(user);
+	postRequestToJSON('/login', user);
+  });
+</script>
+</body>
+</html>

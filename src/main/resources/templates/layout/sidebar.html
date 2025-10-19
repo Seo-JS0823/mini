@@ -1,0 +1,20 @@
+<nav class="side-bar" th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org">
+  <div id="sideBtn"><span id="sideBtn-symbol" class="material-symbols-outlined">left_panel_close</span></div>
+  <div class="side-bar-el">
+    <div>
+      <a class="side-bar-el-box" href="#" data-move="true"><span class="material-symbols-outlined">stat_minus_1</span>가계부</a>
+      <!-- 메뉴 URL -->
+      <ul class="side-bar-el-list">
+        <li><a th:href="@{/}">수입 등록</a></li>
+        <li><a th:href="@{/}">지출 등록</a></li>
+      </ul>
+    </div>
+    <div>
+      <a class="side-bar-el-box" href="#" data-move="true"><span class="material-symbols-outlined">stat_minus_1</span>자기관리</a>
+      <!-- 메뉴 URL -->
+      <ul class="side-bar-el-list">
+        <li><a href="#">오오미</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

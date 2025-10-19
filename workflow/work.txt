@@ -1,0 +1,4 @@
+2025-10-20 작업순서
+1. liferuner-util.js -> fetch 요청 보내는 함수에 로컬 스토리지 토큰 넣어서 보내는 함수
+2. SecurityConfig    -> hasRole 권한 설정, URL reqeustMatchers 설정, PasswordEncoder 설정
+                        UserDetails Wrapper 연결, Filter 체인 다시 설정

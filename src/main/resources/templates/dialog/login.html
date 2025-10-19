@@ -1,0 +1,38 @@
+<div class="login-dialog" th:fragment="login-modal" xmlns:th="http://www.thymeleaf.org">
+  <div id="login-modal">
+    <div class="l-d-header">
+      <div>Life Runer</div>
+      <div>
+        <input type="text" id="UID" placeholder="아이디를 입력해 주세요.">
+        <input type="password" id="UPW" placeholder="비밀번호를 입력해 주세요.">
+      </div>
+    </div>
+    <div class="l-d-control">
+      <div>
+        <div><input type="checkbox" id="login-re"><label for="login-re">로그인 유지</label></div>
+        <div>아이디/비밀번호 찾기</div>
+      </div>
+      <div>
+        <button class="life-btn -bg-main" id="login-run">로그인</button>
+      </div>
+      <div>
+        
+      </div>
+    </div>
+    <div class="l-d-footer">
+      <div>
+        <div id="google-login">
+          <img src="/img/google-logo.png">
+          <div>Log in with Google</div>
+        </div>
+        <div id="naver-login">
+          <img src="/img/naver-logo.png">
+          <div>Log in with Naver</div>
+        </div>
+      </div>
+      <div>
+        <button class="life-btn -bg-lightgreen" id="join-href">회원가입</button>
+      </div>
+    </div>
+  </div>
+</div>

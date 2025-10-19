@@ -1,0 +1,120 @@
+@charset "UTF-8";
+:root {
+  --side-bar-w: 20rem;
+}
+body {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.material-symbols-outlined {
+  font-size: 3rem;
+  color: white;
+}
+.life-btn {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+  color: white;
+  border-radius: 0.5rem;
+}
+.life-btn:hover { transform: scale(1.03); }
+.life-btn:active { transform: scale(1); }
+/* 사이드바 최상위 부모 */
+.side-bar {
+  width: var(--side-bar-w);
+  height: auto;
+  min-height: 100vh;
+  background-color: #1E90FF;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/* 사이드바 상단 width 조절 버튼 */
+#sideBtn {
+  width: auto;
+  margin-left: auto;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+/* 메뉴 선택 텍스트 */
+.side-bar-el {
+  width: 80%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  gap: 1rem;
+}
+.side-bar-el > div {
+  font-size: 1.5rem;
+  width: 100%;
+  height: auto;
+  line-height: 3rem;
+}
+.side-bar-el > div > a:hover {
+  text-shadow: 0 0 5px #FFF;
+}
+.side-bar-el > div > a {
+  color: white;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.side-bar-el > div > ul { padding-left: 3rem; }
+.side-bar-el-list { display: none; }
+.side-bar-el-list > li > a {
+  font-size: 1.3rem;
+  color: white;
+}
+
+.main-container {
+  width: calc(100% - var(--side-bar-w));
+  height: auto;
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+.main-header {
+  width: 100%;
+  height: 4rem;
+  background-color: #FFF;
+  box-shadow: 0 0 5px rgba(33,33,33, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.main-header > div {
+  width: auto;
+  height: auto;
+  padding: 0 1rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.main-header > div:nth-of-type(1) {
+  & a {
+    color: #1E90FF;
+    text-shadow: 0 0 1px #000, 0 0 3px #FFF;
+    font-family: 'Cafe24Decobox';
+  }
+  & input[type=text] {
+    width: 15rem;
+    height: 2rem;
+    line-height: 2rem;
+    outline: none;
+    border: 1px solid #1E90FF;
+    padding-left: 1rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+  }
+}
+.modal {
+  position: fixed;
+}
