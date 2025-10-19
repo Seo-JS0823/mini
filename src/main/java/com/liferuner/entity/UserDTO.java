@@ -1,6 +1,4 @@
-package com.liferuner.transfer;
-
-import com.liferuner.entity.User;
+package com.liferuner.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,23 +10,36 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UserDTO {
-	private String userid;
+	
+	private Long id;
+	
 	private String name;
-	private String gender;
-	private String birthday;
+	
+	private String username;
+	
 	private String password;
+	
+	private String birthday;
+	
 	private String email;
+	
+	private String gender;
+	
 	private String address;
+	
+	private String role;
 	
 	public User toEntity() {
 		return User.builder()
-				   .userid(userid)
+				   .id(id)
 				   .name(name)
-				   .gender(gender)
-				   .birthday(birthday)
+				   .username(username)
 				   .password(password)
+				   .birthday(birthday)
 				   .email(email)
+				   .gender(gender)
 				   .address(address)
+				   .role(role)
 				   .build();
 	}
 }

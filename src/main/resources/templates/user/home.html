@@ -114,34 +114,50 @@
     let gender = gettersId('join-man').checked ? 'man' : 'woman';
     let birthday = gettersId('join-year').value + '-' + gettersId('join-month').value + '-' + gettersId('join-day').value;
     let email = gettersId('join-email').value;
-    let userid = gettersId('join-uid').value;
+    let username = gettersId('join-uid').value;
     let password = gettersId('join-upw').value;
     let address = gettersId('join-address').value;
     
-    let user = {
-      'name':name,
-      'gender':gender,
-      'birthday':birthday,
-      'email':email,
-      'userid':userid,
-      'password':password,
-      'address':address
+    const user = {
+      'name':name, 'gender':gender, 'birthday':birthday, 'email':email,
+      'username':username, 'password':password, 'address':address
     }
-    console.log(user);
-    postRequestToTEXT('/join', user);
+    
+    fetch('/join', {
+      method: 'post',
+      headers: {
+    	  'Content-Type':'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .catch(error => console.log(error))
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
   });
   
   const loginRun = gettersId('login-run');
   loginRun.addEventListener('click', () => {
-    let userid = gettersId('UID').value;
-	let password = gettersId('UPW').value;
-	 
-	let user = {
-	  'userid':userid,
-	  'password':password
-	}
-	console.log(user);
-	postRequestToJSON('/login', user);
+    let username = gettersId('UID').value;
+    let password = gettersId('UPW').value;
+    
+    const user = {
+    	'username':username, 'password':password
+    }
+    
+    fetch('/login', {
+      method: 'post',
+      headers: {
+    	'Content-Type':'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .catch(error => console.log(error))
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
   });
 </script>
 </body>

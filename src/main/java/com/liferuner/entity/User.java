@@ -2,6 +2,8 @@ package com.liferuner.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,29 +16,38 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
 	@Id
-	@Column(name = "userid", nullable = false, length = 30)
-	private String userid;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
-	@Column(name = "name", nullable = false, length = 30)
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "gender", nullable = false, length = 10)
-	private String gender;
+	@Column(name = "user_id", unique = true, nullable = false)
+	private String username;
 	
-	@Column(name = "birthday", nullable = false, length = 12)
-	private String birthday;
-	
-	@Column(name = "password", nullable = false, length = 130)
+	@Column(name = "user_pw", nullable = false)
 	private String password;
 	
-	@Column(name = "email", nullable = false, unique = true, length = 320)
+	@Column(name = "user_birthday", nullable = false)
+	private String birthday;
+	
+	@Column(name = "user_email", nullable = false)
 	private String email;
 	
-	@Column(name = "address", nullable = false, length = 100)
+	@Column(name = "user_gender", nullable = false)
+	private String gender;
+	
+	@Column(name = "user_address", nullable = false)
 	private String address;
 	
+	@Column(name = "user_role" , nullable = false)
+	private String role;
+	
+	public void encodePassword(String encodedPassword) {
+		this.password = encodedPassword;
+	}
 }

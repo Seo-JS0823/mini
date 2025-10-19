@@ -44,52 +44,6 @@ function valueReset(name) {
   }
 }
 
-function postRequestToTEXT(url, body) {
-  Validate.StringValidate(url);
-  Validate.ObjectValidate(body);
-  const token = localStorage.getItem('accessToken');
-  fetch(url, {
-	method: 'post',
-	headers: {
-	  'Autorization': `Bearer ${token}`,
-	  'Content-Type': 'application/json'
-	},
-	body: JSON.stringify(body)
-  })
-  .catch(error => console.log(error))
-  .then(response => response.text())
-  .then(data => {
-	console.log(data);
-  });
-}
-
-function postRequestToJSON(url, body) {
-  Validate.StringValidate(url);
-  Validate.ObjectValidate(body);
-  const token = localStorage.getItem('accessToken');
-  console.log(token);
-  fetch(url, {
-	method: 'post',
-	headers: {
-	  'Content-Type': 'application/json',
-	  'Authorization': `Bearer ${token}`
-	},
-	body: JSON.stringify(body)
-  })
-  .catch(error => console.log(error))
-  .then(response => response.json())
-  .then(data => {
-	tokenRequest(data);
-	window.location.href = '/finance';
-  });
-}
-
-function tokenRequest(token) {
-  const accessToken = token.token;
-  localStorage.setItem('accessToken', accessToken);
-  console.log('토큰 저장 완료', accessToken);
-}
-
 class ComponentManager {
   constructor() {
 	this.components = {};
