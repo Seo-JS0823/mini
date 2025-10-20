@@ -17,26 +17,28 @@ import com.liferuner.security.transfer.TokenResponseDTO;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-	private final AuthenticationManager authenticationManager;
-	private final JwtTokenProvider jwtTokenProvider;
-	
-	public AuthController(AuthenticationManager authenticationManager,
-			              JwtTokenProvider jwtTokenProvider) {
-		this.authenticationManager = authenticationManager;
-		this.jwtTokenProvider = jwtTokenProvider;
-	}
-	
-	@PostMapping("/login")
-	public ResponseEntity<TokenResponseDTO> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
-		System.out.println("username : " + loginRequest.getUsername());
-		Authentication authentication = authenticationManager.authenticate(
-			new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-				                                    loginRequest.getPassword()
-			)
-		);
-		
-		String jwt = jwtTokenProvider.createToken(authentication);
-		System.out.println("Token : " + jwt);
-		return ResponseEntity.ok(new TokenResponseDTO(jwt));
-	}
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    
+    public AuthController(AuthenticationManager authenticationManager,
+                          JwtTokenProvider jwtTokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+    
+    // 로그인: 인증 후 JWT 토큰 발급
+    @PostMapping("/login")
+    public ResponseEntity<TokenResponseDTO> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
+        System.out.println("username : " + loginRequest.getUsername());
+        
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                                                    loginRequest.getPassword()
+            )
+        );
+        
+        String jwt = jwtTokenProvider.createToken(authentication);
+        System.out.println("Token : " + jwt);
+        return ResponseEntity.ok(new TokenResponseDTO(jwt));
+    }
 }

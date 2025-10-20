@@ -1,11 +1,277 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>재무 관리 - Life Runer</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/color.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
 </head>
 <body>
-    
+    <div th:replace="~{layout/header :: header}"></div>
+    <div th:replace="~{layout/sidebar :: sidebar-overlay}"></div>
+    <div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+    <main class="main-content">
+        <div class="content-container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">재무 관리</h1>
+                <p class="dashboard-subtitle">나의 자산을 효율적으로 관리하세요</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon-wrapper blue">
+                            <svg class="stat-icon blue" viewBox="0 0 24 24">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <span class="stat-label">총 자산</span>
+                    </div>
+                    <p class="stat-value">₩2,450,000</p>
+                    <p class="stat-change positive">+12.5% 전월 대비</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon-wrapper green">
+                            <svg class="stat-icon green" viewBox="0 0 24 24">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="stat-label">이번 달 수입</span>
+                    </div>
+                    <p class="stat-value">₩3,200,000</p>
+                    <p class="stat-change neutral">급여 및 부수입</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon-wrapper orange">
+                            <svg class="stat-icon orange" viewBox="0 0 24 24">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                        </div>
+                        <span class="stat-label">이번 달 지출</span>
+                    </div>
+                    <p class="stat-value">₩1,850,000</p>
+                    <p class="stat-change negative">예산 초과 주의</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon-wrapper purple">
+                            <svg class="stat-icon purple" viewBox="0 0 24 24">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                        </div>
+                        <span class="stat-label">저축액</span>
+                    </div>
+                    <p class="stat-value">₩1,350,000</p>
+                    <p class="stat-change positive">목표 달성률 90%</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        카테고리별 지출
+                    </h3>
+                    <div class="expense-list">
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">식비</span>
+                                <span class="expense-amount">₩450,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill blue" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">교통비</span>
+                                <span class="expense-amount">₩180,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill green" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">쇼핑</span>
+                                <span class="expense-amount">₩320,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill purple" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">문화생활</span>
+                                <span class="expense-amount">₩250,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill orange" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">기타</span>
+                                <span class="expense-amount">₩650,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill blue" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg class="card-title-icon" viewBox="0 0 24 24">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                        자산 포트폴리오
+                    </h3>
+                    <div class="expense-list">
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">예금</span>
+                                <span class="expense-amount">₩5,000,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill blue" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">주식</span>
+                                <span class="expense-amount">₩3,000,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill green" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">펀드</span>
+                                <span class="expense-amount">₩1,500,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill purple" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-item-header">
+                                <span class="expense-name">현금</span>
+                                <span class="expense-amount">₩500,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill orange" style="width: 5%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">
+                    <svg class="card-title-icon" viewBox="0 0 24 24">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                    </svg>
+                    최근 거래 내역
+                </h3>
+                <div class="schedule-list">
+                    <div class="schedule-item blue">
+                        <div class="schedule-content">
+                            <div>
+                                <p class="schedule-title">급여 입금</p>
+                                <p class="schedule-date">2025-10-20</p>
+                            </div>
+                            <span class="schedule-time" style="color: var(--green-600);">+₩3,000,000</span>
+                        </div>
+                    </div>
+                    <div class="schedule-item orange">
+                        <div class="schedule-content">
+                            <div>
+                                <p class="schedule-title">마트 결제</p>
+                                <p class="schedule-date">2025-10-19</p>
+                            </div>
+                            <span class="schedule-time" style="color: var(--red-600);">-₩150,000</span>
+                        </div>
+                    </div>
+                    <div class="schedule-item purple">
+                        <div class="schedule-content">
+                            <div>
+                                <p class="schedule-title">영화 예매</p>
+                                <p class="schedule-date">2025-10-18</p>
+                            </div>
+                            <span class="schedule-time" style="color: var(--red-600);">-₩28,000</span>
+                        </div>
+                    </div>
+                    <div class="schedule-item green">
+                        <div class="schedule-content">
+                            <div>
+                                <p class="schedule-title">카페 결제</p>
+                                <p class="schedule-date">2025-10-18</p>
+                            </div>
+                            <span class="schedule-time" style="color: var(--red-600);">-₩12,500</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script th:src="@{/js/app.js}"></script>
+    <script>
+        const token = localStorage.getItem('liferuner_jwt_token');
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            window.location.href = '/login';
+        }
+        
+        renderHeader();
+        
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+            } else {
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            menuIcon.style.display = 'block';
+            closeIcon.style.display = 'none';
+        });
+    </script>
 </body>
 </html>

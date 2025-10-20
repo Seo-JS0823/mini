@@ -21,56 +21,60 @@ import com.liferuner.security.filter.JwtAuthenticationFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	private final JwtTokenProvider jwtTokenProvider;
-	private final CustomUserDetailsService userDetailsSvc;
-	
-	public SecurityConfig(JwtTokenProvider jwtTokenProvider,
-			              CustomUserDetailsService userDetailsSvc) {
-		this.jwtTokenProvider = jwtTokenProvider;
-		this.userDetailsSvc = userDetailsSvc;
-	}
-	
-	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
-		// CSRF 비활성화
-		.csrf(AbstractHttpConfigurer::disable)
-		// 세션을 사용하지 않음
-		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-		// 권한 설정
-		.authorizeHttpRequests(auth -> auth
-			// 권한 인증, 회원가입, 로그인 등 경로 허용
-			.requestMatchers("/api/auth/**", "/join", "/", "/css/**", "/img/**", "/js/**", "/favicon.ico").permitAll()
-			// USER 권한 필요한 경로
-			.requestMatchers("/api/user/**").hasRole("USER")
-			// 나머지 모든 요청은 인증 필요(토큰)
-			.anyRequest().authenticated()
-		)
-		// JWT 필터 등록
-		// JWT 검증 필터를 UsernamePasswordAuthenticationFilter 이전에 추가한다.
-		.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-		// 기본 폼 로그인, HTTP Basic 비활성화
-		.formLogin(AbstractHttpConfigurer::disable)
-		.httpBasic(AbstractHttpConfigurer::disable);
-		
-		return http.build();
-	}
-	
-	// PasswordEncoder 빈 등록 (비밀번호 해싱/검증에 사용)
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	// AuthenticationManager 빈 등록 (로그인 시 사용)
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
-	}
-	
-	// JWT 필터를 빈으로 등록하여 주입 가능하게 함
-	@Bean
-	JwtAuthenticationFilter jwtAuthenticationFilter() {
-		return new JwtAuthenticationFilter(jwtTokenProvider, userDetailsSvc);
-	}
+    private final JwtTokenProvider jwtTokenProvider;
+    private final CustomUserDetailsService userDetailsSvc;
+    
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider,
+                            CustomUserDetailsService userDetailsSvc) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userDetailsSvc = userDetailsSvc;
+    }
+    
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+        .csrf(AbstractHttpConfigurer::disable)
+        // 세션 사용 안함 -> (JWT 사용)
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        // URL별 권한 설정해야돼 이거안하면안댄다
+        .authorizeHttpRequests(auth -> auth
+            // 정적 리소스 및 공개 경로 모두 허용 -> 이거 나중에 캐싱설정가능해
+            .requestMatchers(
+                "/api/auth/**", 
+                "/join", 
+                "/", 
+                "/css/**", 
+                "/img/**", 
+                "/js/**", 
+                "/favicon.ico",
+                "/service-worker.js",
+                "/error"
+            ).permitAll()
+            // USER 권한 필요
+            .requestMatchers("/api/user/**").hasRole("USER")
+            // 나머지 요청은 인증 필요함
+            .anyRequest().authenticated()
+        )
+        // JWT 필터 UsernamePasswordAuthenticationFilter 이전에 추가해야대
+        .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+        .formLogin(AbstractHttpConfigurer::disable)
+        .httpBasic(AbstractHttpConfigurer::disable);
+        
+        return http.build();
+    }
+    
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+    
+    @Bean
+    JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter(jwtTokenProvider, userDetailsSvc);
+    }
 }

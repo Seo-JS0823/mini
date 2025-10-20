@@ -17,45 +17,46 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtTokenProvider {
 
-	private final Key key;
-	private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
-	
-	public JwtTokenProvider(@Value("${jwt.secret}") String secretKey) {
-		this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
-	}
-	
-	public String createToken(Authentication authentiacation) {
-		String username = authentiacation.getName();
-		Date now = new Date();
-		Date expiryDate = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_TIME);
-		
-		return Jwts.builder()
-				   .setSubject(username)
-				   .setIssuedAt(now)
-				   .setExpiration(expiryDate)
-				   .signWith(key, SignatureAlgorithm.HS256)
-				   .compact();
-	}
-	
-	public String getUsernameFromToken(String token) {
-		Claims claims = Jwts.parserBuilder()
-				            .setSigningKey(key)
-				            .build()
-				            .parseClaimsJws(token)
-				            .getBody();
-		return claims.getSubject();
-	}
-	
-	public boolean validateToken(String token) {
-		try {
-			Jwts.parserBuilder()
-			    .setSigningKey(key)
-			    .build()
-			    .parseClaimsJws(token);
-			return true;
-		} catch(JwtException | IllegalArgumentException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+    private final Key key;
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
+    
+    public JwtTokenProvider(@Value("${jwt.secret}") String secretKey) {
+        this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+    }
+    
+    // JWT 토큰 생성
+    public String createToken(Authentication authentiacation) {
+        String username = authentiacation.getName();
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_TIME);
+        
+        return Jwts.builder()
+                   .setSubject(username)
+                   .setIssuedAt(now)
+                   .setExpiration(expiryDate)
+                   .signWith(key, SignatureAlgorithm.HS256)
+                   .compact();
+    }
+    
+    // 토큰에서 사용자명 추출
+    public String getUsernameFromToken(String token) {
+        Claims claims = Jwts.parser()
+                            .setSigningKey(key)
+                            .parseClaimsJws(token)
+                            .getBody();
+        return claims.getSubject();
+    }
+    
+    // 토큰 유효성 검증
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser()
+                .setSigningKey(key)
+                .parseClaimsJws(token);
+            return true;
+        } catch(JwtException | IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -1,64 +1,114 @@
-<div class="join-dialog" th:fragment="join-modal" xmlns:th="http://www.thymeleaf.org">
-  <div id="join-modal">
-    <div>Life Runer</div>
-    <div>회원가입하고 자기관리를 시작 해보세요.</div>
-    <div>이미 계정이 있으신가요? <a href="#">로그인하기</a></div>
-    <hr>
-    <div class="join-modal-input">
-      <div>
-        <div>성함</div>
-        <input type="text" id="join-name" placeholder="성함을 입력하세요.">
-        <div id="join-name-text"></div>
-      </div>
-      <div class="join-modal-row">
-        <div>
-          <div>성별</div>
-          <input type="radio" id="join-man" name="gender" checked>남자
-          <input type="radio" id="join-woman" name="gender">여자
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - Life Runer</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/color.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+<body>
+    <div class="modal-overlay active">
+        <div class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">회원가입</h2>
+                    <button class="modal-close" onclick="window.location.href='/'">
+                        <svg class="modal-close-icon" viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">이름</label>
+                    <input type="text" class="form-input" id="joinName" placeholder="이름을 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">아이디</label>
+                    <input type="text" class="form-input" id="joinUsername" placeholder="아이디를 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">비밀번호</label>
+                    <input type="password" class="form-input" id="joinPassword" placeholder="비밀번호를 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">생년월일</label>
+                    <input type="date" class="form-input" id="joinBirthday" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">이메일</label>
+                    <input type="email" class="form-input" id="joinEmail" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">성별</label>
+                    <div class="form-radio-group">
+                        <label class="form-radio-label">
+                            <input type="radio" class="form-radio" name="gender" value="male" checked> 남성
+                        </label>
+                        <label class="form-radio-label">
+                            <input type="radio" class="form-radio" name="gender" value="female"> 여성
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">주소</label>
+                    <input type="text" class="form-input" id="joinAddress" placeholder="주소를 입력하세요" required>
+                </div>
+                <button class="form-submit" onclick="handleJoin()">회원가입</button>
+                <div class="modal-footer">
+                    <p>이미 계정이 있으신가요? <a href="/login" class="modal-link">로그인</a></p>
+                </div>
+            </div>
         </div>
-        <div></div>
-      </div>
-      <div class="join-modal-date">
-        <div>생년월일</div>
-        <div>
-          <input type="text" id="join-year" placeholder="연도 1998">
-          <input type="text" id="join-month" placeholder="월 09">
-          <input type="text" id="join-day" placeholder="일 08">
-        </div>
-        <div id="join-date-text"></div>
-      </div>
-      <div>
-        <div>이메일</div>
-        <input type="text" id="join-email" placeholder="이메일을 입력하세요.">
-        <div id="join-email-text"></div>
-      </div>
-      <div>
-        <div>아이디</div>
-        <input type="text" id="join-uid" placeholder="아이디를 입력하세요.">
-        <div id="join-uid-text"></div>
-      </div>
-      <div class="join-modal-row">
-        <div>
-          <div>비밀번호</div>
-          <input type="password" id="join-upw" placeholder="패스워드를 입력하세요.">
-        </div>
-      </div>
-      <div class="join-modal-row">
-        <div>
-          <div>비밀번호 확인</div>
-          <input type="password" id="join-upw-valid" placeholder="패스워드를 입력하세요.">
-        </div>
-        <div id="join-pwd-text"></div>
-      </div>
-      <div>
-        <div>주소</div>
-        <input type="text" id="join-address" placeholder="주소를 검색하세요.">
-      </div>
     </div>
-    <hr>
-    <div>
-      <button class="life-btn -bg-main" id="join-run">회원가입</button>
-      <button class="life-btn -bg-lightgreen" id="back-run">뒤로가기</button>
-    </div>
-  </div>
-</div>
+
+    <script>
+        function handleJoin() {
+            const name = document.getElementById('joinName').value;
+            const username = document.getElementById('joinUsername').value;
+            const password = document.getElementById('joinPassword').value;
+            const birthday = document.getElementById('joinBirthday').value;
+            const email = document.getElementById('joinEmail').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const address = document.getElementById('joinAddress').value;
+            
+            if (!name || !username || !password || !birthday || !email || !address) {
+                alert('모든 필드를 입력해주세요.');
+                return;
+            }
+            
+            fetch('/join', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    username: username,
+                    password: password,
+                    birthday: birthday,
+                    email: email,
+                    gender: gender,
+                    address: address
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('회원가입 실패');
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert('회원가입 성공! 로그인 페이지로 이동합니다.');
+                window.location.href = '/login';
+            })
+            .catch(error => {
+                alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

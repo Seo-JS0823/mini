@@ -1,9 +1,46 @@
-<div class="main-header" th:fragment="header" xmlns:th="http://www.thymeleaf.org">
-  <div>
-    <a href="#">Life Runer</a>
-    <input type="text" id="search" placeholder="search">
-  </div>
-  <div>
-    <button class="life-btn -bg-blue" id="login">로그인</button>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <header class="header" th:fragment="header">
+        <div class="header-container">
+            <div class="header-top">
+                <div class="header-left">
+                    <button class="menu-btn" id="menuBtn">
+                        <svg class="menu-icon" id="menuIcon" viewBox="0 0 24 24">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                        <svg class="menu-icon" id="closeIcon" style="display: none;" viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <a th:href="@{/}" class="logo">Life Runer</a>
+                    <div class="search-box">
+                        <svg class="search-icon" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" class="search-input" placeholder="검색">
+                    </div>
+                </div>
+                <div class="header-right" id="headerRight">
+                </div>
+            </div>
+            <div class="mobile-search">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="검색">
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

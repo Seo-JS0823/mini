@@ -1,0 +1,144 @@
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.modal-content {
+    padding: 1.5rem;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--gray-900);
+}
+
+.modal-close {
+    padding: 0.5rem;
+    background: none;
+    border-radius: 0.5rem;
+    transition: background 0.2s;
+}
+
+.modal-close:hover {
+    background: var(--gray-100);
+}
+
+.modal-close-icon {
+    width: 24px;
+    height: 24px;
+    stroke: var(--gray-500);
+    stroke-width: 2;
+    fill: none;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: var(--primary-blue);
+    border-color: transparent;
+}
+
+.form-radio-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-radio-label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.form-radio {
+    margin-right: 0.5rem;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background 0.2s;
+    margin-top: 1rem;
+}
+
+.form-submit:hover {
+    background: var(--primary-blue-dark);
+}
+
+.modal-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: var(--gray-600);
+}
+
+.modal-link {
+    color: var(--primary-blue);
+    font-weight: 500;
+    background: none;
+    padding: 0;
+}
+
+.modal-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .modal {
+        max-width: 90%;
+    }
+    
+    .modal-content {
+        padding: 1.25rem;
+    }
+}
