@@ -33,6 +33,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+        .cors(AbstractHttpConfigurer::disable)
         .csrf(AbstractHttpConfigurer::disable)
         // 세션 사용 안함 -> (JWT 사용)
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -40,7 +41,8 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             // 정적 리소스 및 공개 경로 모두 허용 -> 이거 나중에 캐싱설정가능해
             .requestMatchers(
-                "/api/auth/**", 
+                "/api/**",
+                "/commu-images/**",
                 "/join", 
                 "/", 
                 "/css/**", 

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+  <title>Document</title>
+  <style>
+    * { box-sizing: border-box; }
+    .toastui-editor-mode-switch {
+      display: none !important;
+    }
+    .toastui-editor-defaultUI-toolbar {
+      background-color: #1E90FF;
+    }
+    .toastui-editor-toolbar-group button {
+      background-color: #1E90FF;
+      border: none;
+      color: white;
+      font-weight: 900;
+      font-size: 1rem;
+    }
+    .toastui-editor-toolbar-group button:hover {
+      color: #1E90FF;
+    }
+    .strike {
+      text-decoration: line-through;
+    }
+    .life-content-btnArea {
+      width: 100%;
+      padding: 1rem;
+      gap: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .life-content-btnArea button {
+      width: 5rem;
+      padding: 0.3rem 0;
+      border: none;
+      border-radius: 0.5rem;
+      color: white;
+      cursor: pointer;
+    }
+    .life-content-btnArea button:hover {
+      transform: scale(1.02);
+    }
+    .life-content-btnArea button.save {
+      background-color: #00AA00;
+    }
+    .life-content-btnArea button.noneSave {
+      background-color: #DC3545;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="content"></div>
+  <div class="life-content-btnArea">
+    <button class="save" id="upload">글저장</button>
+    <button class="noneSave" id="uploadFlase">취소</button>
+  </div>
+  
+  <div id="content2"></div>
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script>
+  const editor = new toastui.Editor({
+    el: document.querySelector('#content'),
+    height: 'auto',
+    minHeight: '1000px',
+    initialEditType: 'wysiwyg',
+    initialValue: '',
+    previewStyle: 'vertical',
+    toolbarItems: [
+      [{ name: 'life-bold', tooltip: '굵기', command: 'bold', text: 'B' },
+      { name: 'life-italic', tooltip: '기울이기', command: 'italic', text: 'I' },
+      { name: 'life-strike', tooltip: '취소선', command: 'strike', text: 'T', className: 'strike' }
+      ],
+      ['hr', 'quote'],
+      ['ul', 'ol', 'task', 'indent', 'outdent'],
+      ['image', 'link']
+    ]
+  });
+  const editor2 = new toastui.Editor({
+    el: document.querySelector('#content2'),
+    height: 'auto',
+    minHeight: '1000px',
+    initialEditType: 'wysiwyg',
+    initialValue: '',
+    previewStyle: 'vertical',
+    toolbarItems: [
+      [{ name: 'life-bold', tooltip: '굵기', command: 'bold', text: 'B' },
+      { name: 'life-italic', tooltip: '기울이기', command: 'italic', text: 'I' },
+      { name: 'life-strike', tooltip: '취소선', command: 'strike', text: 'T', className: 'strike' }
+      ],
+      ['hr', 'quote'],
+      ['ul', 'ol', 'task', 'indent', 'outdent'],
+      ['image', 'link']
+    ]
+  });
+
+  const upload = document.getElementById('upload');
+  upload.addEventListener('click', () => {
+    const html = editor.getHTML();
+    const imgs = getImageData(html);
+    const parseHTML = newHTML(imgs, html);
+	
+    const request = {
+      imgs: imgs,
+      html: parseHTML
+    }
+    
+    /*
+    fetch('/api/commu/write', {
+      method: 'post',
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(request)
+    })
+    .then(response => response.text())
+    .then(data => {
+      editor2.setHTML(data);
+    })
+    */
+  });
+
+  function getImageData(html) {
+    const imgParser = /<img[^>]*\/?>/g;
+    const imgResult = html.match(imgParser);
+    if(!imgResult) return;
+
+    const srcParser = /src\s*=\s*["']?([^>"']*)["']?/g;
+    let srcResults = [];
+    imgResult.forEach(item => {
+      srcResults.push(item);
+    })
+    
+    let results = [];
+    srcResults.forEach(item => {
+      const temp = item.split(',');
+      const mimeTypeTemp = temp[0].split(';')[0].split(':')[1];
+      const base64DataTemp = temp[1].split(' ')[0].replace(/"$/, '');
+      
+      const result = {
+        'mimeType':mimeTypeTemp,
+        'base64Data':base64DataTemp
+      }
+      results.push(result);
+    })
+    return results;
+  }
+
+  function newHTML(imgs, html) {
+	const domParser = new DOMParser();
+	const doc = domParser.parseFromString(html, 'text/html');
+	
+	const images = doc.querySelectorAll('img');
+	
+	let i = 0;
+	images.forEach(img => {
+		img.removeAttribute('contenteditable');
+		const srcValue = img.setAttribute('src', i + '/bind');
+		i++;
+	})
+    
+	const finalHTML = doc.documentElement.outerHTML;
+	
+	return finalHTML;
+  }
+</script>
+</body>
+</html>

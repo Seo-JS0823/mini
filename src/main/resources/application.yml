@@ -2,14 +2,14 @@ server:
   port: 8085
 
 spring:
+  config:
+    import:
+      - optional:file:.env[.properties]
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
+    url: ${MYSQL_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -55,7 +55,7 @@ spring:
             user-name-attribute: id
 
 jwt:
-  secret: YourVeryLongSecretKeyThatIsAtLeast256BitsLongForHS256Algorithm
+  secret: ${SECRET_KEY}
   
 logging:
   level:
